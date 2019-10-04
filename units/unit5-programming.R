@@ -948,7 +948,9 @@ f() # what will happen?
 y <- 100
 f <- function(){
 	y <- 10
-	g <- function(x) x + y
+	g <- function(x) {
+            return(x + y + rnorm(1))
+        }
 	return(g)
 }
 ## you can think of f() as a function constructor
@@ -1183,7 +1185,7 @@ logLik <- function(k, n, p, phi) {
 
 
 
-## @knitr challenge8
+## @knitr challenge7
 
 PIKK <- function(n, k) {
     ## return indices of the sample of size k
@@ -1201,7 +1203,7 @@ FYKD <- function(n, k) {
     return(indices[1:k])
 }
 
-## @knitr challenge9
+## @knitr challenge8
 
 n <- 100000
 p <- 5  ## number of categories
@@ -1214,7 +1216,10 @@ smp <- rep(0, n)
 
 ## loop by row and use sample()
 set.seed(1)
-system.time(for(i in seq_len(n)) smp[i] <- sample(p, 1, prob = probs[i, ]))
+system.time(
+    for(i in seq_len(n))
+        smp[i] <- sample(p, 1, prob = probs[i, ])
+)
 
                   
 ## @knitr                  
@@ -1263,12 +1268,6 @@ ls.sizes <- function(howMany = 10, minSize = 1){
 
 ## @knitr serialize
 
-## size of an environment
-e <- new.env()
-e$x <- rnorm(1e7)
-object.size(e)
-object_size(e)
-length(serialize(e, NULL))
 
 ## size of a closure
 x <- rnorm(1e7)
@@ -1285,6 +1284,12 @@ length(serialize(myFun, NULL))
 ## note that our discussion of copy-on-change will tell us
 ## why the 80 MB vs. 160 MB disagreement occurs
 
+## size of an environment
+e <- new.env()
+e$x <- rnorm(1e7)
+object.size(e)
+object_size(e)
+length(serialize(e, NULL))
 
 ## @knitr inspect
 x <- rnorm(5)
@@ -1314,9 +1319,7 @@ length(serialize(tmp, NULL)) # expands the object out
 
 ## @knitr hidden3, eval=FALSE
 x <- rnorm(1e7)
-gc()
 y <- x[1:(length(x) - 1)]
-gc()
 
 
 ## @knitr
