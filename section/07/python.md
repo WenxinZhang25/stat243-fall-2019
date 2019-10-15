@@ -10,7 +10,7 @@ Background
 Preparation
 ---------------
 
-This tutorial assumes you are familiar with R (or possibly another high-level language such as MATLAB). 
+This tutorial assumes you are familiar with R.
 
 You will also need Python and IPython installed on your computer, as well as a few core additional packages, including re, numpy, scipy, and pandas. 
 
@@ -178,20 +178,20 @@ Python prompt or other files by importing it. Typically, this is done at
 the top of a file (if you are working at a prompt, you just need to
 import it before you want to use the functionality).
 
-Note that the use of `test.` is similar to our discussion of package
+Note that the use of `mytest.` is similar to our discussion of package
 namespaces in R.
 
 ``` {.sourceCode .bash}
-cat test.py  # special IPython functionality to call the operating system
+cat mytest.py  # special IPython functionality to call the operating system
 ```
 
 ``` {.sourceCode .python}
 del(a); del(hello)   # delete any existing objects
 
-import test          # make available objects/functions in test.py
+import mytest          # make available objects/functions in mytest.py
 
-test.hello()         # access using object-oriented style syntax
-test.a
+mytest.hello()         # access using object-oriented style syntax
+mytest.a
 
 hello()
 a
@@ -201,7 +201,7 @@ We can import everything in the test.py file if we want. Why
 might this not be a great idea?
 
 ``` {.sourceCode .python}
-from test import *
+from mytest import *
 
 hello()
 a
@@ -697,6 +697,11 @@ dat2007['lifeExpZ'] = dat2007.groupby('continent')['lifeExp'].transform(stdize)
 - Use *pd.merge()* to merge the continent means for life expectancy for 2007 back into the original *dat2007* dataFrame.
 
 
+
+
+Additional topics
+==================
+
 Style 
 -----
 
@@ -718,12 +723,8 @@ conventions. Similarly,
 automatically format your code so that it conforms to the PEP8
 standards. I have used both a little and they seem to work fairly well.
 
-
-Additional topics
-==================
-
 Classes
-=======
+------------
 
 -   <https://docs.python.org/3/tutorial/classes.html>
 
@@ -762,7 +763,7 @@ x.counter
 ```
 
 Strings
-============
+----------
 
 Strings are immutable sequences of (zero or more) characters.
 
