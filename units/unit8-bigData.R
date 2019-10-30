@@ -188,14 +188,14 @@ result1 <- dbGetQuery(db, "select * from
         Q.questionid = T.questionid and
         Q.ownerid = U.userid and
         tag = 'python' and
-        age < 18")
+        age > 60")
 
 result2 <- dbGetQuery(db, "select * from
         questions Q
         join questions_tags T on Q.questionid = T.questionid
         join users U on Q.ownerid = U.userid
         where tag = 'python' and
-        age < 18")
+        age > 60")
 
 identical(result1, result2)
 
@@ -235,8 +235,6 @@ system.time(dbGetQuery(db,
 
 ## 3.11 Temporary tables and views
 
-## @knitr drop-view
-dbGetQuery(db, "drop view questionsAugment") # drop so can create again in next step
 
 
 ## @knitr view
@@ -252,6 +250,9 @@ dbGetQuery(db, "create view questionsAugment as select
 ## the view HAS been created
                
 dbGetQuery(db, "select * from questionsAugment where age < 15 limit 5")
+
+## @knitr drop-view
+dbGetQuery(db, "drop view questionsAugment") # drop so can create again in next step
 
 ## @knitr
 
